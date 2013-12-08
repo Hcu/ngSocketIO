@@ -7,7 +7,7 @@ describe('socket-io module', function() {
     beforeEach(function() {
         module('socket-io');
 
-        socket = jasmine.createSpyObj('socket', ['on', 'once', 'removeListener', 'removeAllListeners', 'emit']);
+        socket = jasmine.createSpyObj('socket', ['on', 'once', 'removeListener', 'removeAllListeners', 'emit', 'disconnect']);
         socket.on.andCallFake(function(name, callback) { currentCallback = callback; });
         socket.once = socket.on;
         socket.emit.andCallFake(function(name, data, callback) { currentCallback = callback; });
@@ -161,6 +161,17 @@ describe('socket-io module', function() {
             expect(callback).toHaveBeenCalledWith('some other data');
             expect($rootScope.$digest).toHaveBeenCalled();
         });
+    });
+    
+    describe('disconnect method', function(){
+        it('calls the dissconnect method', function(){
+            //Act
+        sut.disconnect();
+        
+        //Assert
+        expect(socket.disconnect).toHaveBeenCalled();
+        });
+        
     });
 });
 

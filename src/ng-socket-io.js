@@ -87,6 +87,9 @@ angular.module('socket-io', []).factory('socket', function($rootScope, io) {
             else {
                 socket.emit(name, data);
             }
+        },
+        disconnect: function(){
+            socket.disconnect();
         }
     };
 
